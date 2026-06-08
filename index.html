@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>후쿠오카 가족여행 2박3일</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF6F0;
+    --warm: #F0E8D8;
+    --rust: #C4603A;
+    --rust-light: #E8896A;
+    --deep: #2C2018;
+    --mid: #6B4E35;
+    --soft: #A08060;
+    --green: #5A7A5A;
+    --sky: #6B8FA8;
+    --gold: #C89A3A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--cream);
+    color: var(--deep);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .hero {
+    background: var(--deep);
+    color: var(--cream);
+    padding: 48px 24px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 20%, rgba(196,96,58,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(107,143,168,0.15) 0%, transparent 50%);
+  }
+  .hero-inner { position: relative; max-width: 680px; margin: 0 auto; }
+  .hero-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rust-light);
+    border: 1px solid rgba(232,137,106,0.4);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(28px, 7vw, 44px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .hero h1 span { color: var(--rust-light); }
+  .hero-sub {
+    font-size: 13px;
+    color: rgba(250,246,240,0.6);
+    letter-spacing: 0.05em;
+    margin-bottom: 28px;
+  }
+  .family-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .family-tag {
+    background: rgba(250,246,240,0.08);
+    border: 1px solid rgba(250,246,240,0.15);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: rgba(250,246,240,0.75);
+  }
+  .family-tag .icon { margin-right: 5px; }
+
+  /* TIPS BAR */
+  .tips-bar {
+    background: var(--rust);
+    padding: 12px 24px;
+  }
+  .tips-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .tips-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .tips-text { font-size: 12px; color: rgba(250,246,240,0.9); line-height: 1.6; }
+  .tips-text strong { color: #fff; font-weight: 500; }
+
+  /* DAY TABS */
+  .tabs {
+    background: var(--warm);
+    border-bottom: 1px solid rgba(160,128,96,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tabs-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+  }
+  .tab {
+    flex: 1;
+    padding: 14px 8px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--soft);
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .tab.active {
+    color: var(--rust);
+    border-bottom-color: var(--rust);
+    font-weight: 500;
+  }
+  .tab-day { display: block; font-size: 11px; opacity: 0.7; margin-top: 2px; }
+
+  /* MAIN */
+  .main { max-width: 680px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  /* DAY PANEL */
+  .day-panel { display: none; }
+  .day-panel.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(160,128,96,0.2);
+  }
+  .day-num {
+    width: 48px;
+    height: 48px;
+    background: var(--rust);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .day-num-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.8; }
+  .day-num-n { font-family: 'Noto Serif KR', serif; font-size: 22px; font-weight: 700; line-height: 1; }
+  .day-title { font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 600; }
+  .day-desc { font-size: 12px; color: var(--soft); margin-top: 3px; }
+
+  /* TIMELINE */
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--rust), rgba(160,128,96,0.2));
+  }
+
+  .slot {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .slot-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    border: 2px solid var(--cream);
+  }
+  .slot-dot.morning { background: #FFF3E0; }
+  .slot-dot.afternoon { background: #E8F4F0; }
+  .slot-dot.evening { background: #EEF2F8; }
+  .slot-dot.meal { background: #FDF0E8; border-color: var(--rust); }
+
+  .slot-body { flex: 1; padding-top: 4px; }
+  .slot-time {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--soft);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .slot-card {
+    background: white;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 3px rgba(44,32,24,0.06);
+    border: 1px solid rgba(160,128,96,0.12);
+  }
+  .slot-card.meal-card { border-left: 3px solid var(--rust); }
+  .slot-card.highlight-card { border-left: 3px solid var(--gold); }
+
+  .slot-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--deep);
+    margin-bottom: 4px;
+  }
+  .slot-detail {
+    font-size: 12px;
+    color: var(--soft);
+    line-height: 1.7;
+  }
+  .slot-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  .stag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .stag-baby { background: #FFF0F5; color: #C06080; }
+  .stag-elderly { background: #F0F5FF; color: #4060A0; }
+  .stag-food { background: #FFF5E0; color: #A06020; }
+  .stag-walk { background: #F0FAF0; color: #407040; }
+  .stag-free { background: #F5F5F5; color: #606060; }
+  .stag-tip { background: #FFF8E8; color: #806020; }
+
+  /* PRACTICAL INFO */
+  .section-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--mid);
+    margin: 32px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(160,128,96,0.2);
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-card {
+    background: white;
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid rgba(160,128,96,0.12);
+  }
+  .info-card-icon { font-size: 20px; margin-bottom: 8px; }
+  .info-card-title { font-size: 12px; font-weight: 500; color: var(--deep); margin-bottom: 4px; }
+  .info-card-body { font-size: 11px; color: var(--soft); line-height: 1.7; }
+
+  /* ESSENTIALS */
+  .essentials-list { display: flex; flex-direction: column; gap: 8px; }
+  .essential-item {
+    background: white;
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    border: 1px solid rgba(160,128,96,0.12);
+    font-size: 13px;
+  }
+  .essential-item .ei-icon { font-size: 18px; flex-shrink: 0; }
+  .essential-item .ei-text { color: var(--deep); line-height: 1.6; }
+  .essential-item .ei-text strong { font-weight: 500; }
+
+  .footer-note {
+    margin-top: 40px;
+    padding: 16px;
+    background: var(--warm);
+    border-radius: 10px;
+    font-size: 11px;
+    color: var(--soft);
+    text-align: center;
+    line-height: 1.8;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Family Travel Plan</div>
+    <h1>후쿠오카<br><span>2박 3일</span> 가족여행</h1>
+    <p class="hero-sub">6월 10일(수) — 6월 12일(금) · 진에어 · 16개월 아기와 함께하는 큐슈 여행</p>
+    <div class="family-tags">
+      <span class="family-tag"><span class="icon">👶</span>16개월 아기</span>
+      <span class="family-tag"><span class="icon">👨‍👩‍👧</span>부부</span>
+      <span class="family-tag"><span class="icon">👴👵</span>장인 · 장모님</span>
+      <span class="family-tag"><span class="icon">✈️</span>총 5명</span>
+    </div>
+  </div>
+</div>
+
+<div class="tips-bar">
+  <div class="tips-inner">
+    <div class="tips-icon">💡</div>
+    <div class="tips-text">
+      <strong>16개월 아기 동반 핵심 원칙</strong> — 무리한 이동은 금물. 낮잠 시간(보통 오후 1~3시)을 존중하고, 이동 시엔 유모차 필수. 실내 수유실은 후쿠오카 대형 쇼핑몰 대부분에 구비되어 있습니다.
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tabs-inner">
+    <button class="tab active" onclick="showDay(0)">
+      1일차 <span style="font-size:9px;opacity:0.7">6/10</span>
+      <span class="tab-day">도착 · 하카타</span>
+    </button>
+    <button class="tab" onclick="showDay(1)">
+      2일차 <span style="font-size:9px;opacity:0.7">6/11</span>
+      <span class="tab-day">텐진 · 오호리</span>
+    </button>
+    <button class="tab" onclick="showDay(2)">
+      3일차 <span style="font-size:9px;opacity:0.7">6/12</span>
+      <span class="tab-day">나카스 쇼핑 · 귀국</span>
+    </button>
+    <button class="tab" onclick="showDay(3)">
+      찜한 곳
+      <span class="tab-day">후보 장소 모음</span>
+    </button>
+    <button class="tab" onclick="showDay(4)">
+      준비사항
+      <span class="tab-day">아기 동반 TIP</span>
+    </button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- DAY 1 -->
+  <div class="day-panel active" id="day-0">
+    <div class="day-header">
+      <div class="day-num">
+        <span class="day-num-label">DAY</span>
+        <span class="day-num-n">1</span>
+      </div>
+      <div>
+        <div class="day-title">도착하는 날, 하카타 탐방</div>
+        <div class="day-desc">짧은 이동 거리와 느긋한 첫날</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="slot">
+        <div class="slot-dot morning">✈️</div>
+        <div class="slot-body">
+          <div class="slot-time">11:10 후쿠오카 공항 도착</div>
+          <div class="slot-card">
+            <div class="slot-name">진에어 LJ0273 · 인천 09:40 출발</div>
+            <div class="slot-detail">입국 심사·수하물 수취 감안하면 공항 출구까지 약 30~40분 소요. 실제 이동 가능 시간은 12:00 전후. 지하철 공항선으로 하카타역까지 단 5분. 공항·지하철 모두 엘리베이터 완비라 유모차 이동 편리.</div>
+            <div class="slot-tags">
+              <span class="stag stag-baby">👶 유모차 대응</span>
+              <span class="stag stag-elderly">♿ 엘리베이터 완비</span>
+              <span class="stag stag-tip">💡 공항 출구까지 약 40분</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-dot morning">🏨</div>
+        <div class="slot-body">
+          <div class="slot-time">12:00~12:30 · 체크인 전</div>
+          <div class="slot-card">
+            <div class="slot-name">나인 호텔 하카타 — 짐 맡기기</div>
+            <div class="slot-detail">체크인 전이라도 프런트에 짐 보관 요청 가능. 유모차·캐리어 모두 맡기고 빈 몸으로 출발. 얼리 체크인 가능 여부도 함께 문의. 호텔에서 이치란 선플라자점까지 도보 15~20분 또는 택시 5분(700~800엔).</div>
+            <div class="slot-tags">
+              <span class="stag stag-tip">💡 짐 보관 후 이동</span>
+              <span class="stag stag-tip">🚕 택시 700~800엔</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-dot meal">🍜</div>
+        <div class="slot-body">
+          <div class="slot-time">13:00 · 첫 끼니</div>
+          <div class="slot-card meal-card">
+            <div class="slot-name">캐널시티 라멘 스타디움 (5층)</div>
+            <div class="slot-detail">나인 호텔에서 도보 10분. 일본 전국 8개 라멘 전문점이 모인 푸드코트 형태라 5명이 각자 취향껏 선택 가능. 넓은 공간에 유모차 이동 자유롭고 어르신도 편하게 자리 잡을 수 있음. 캐널시티 유모차 대여(1층)도 가능. 오후 캐널시티 관광과 자연스럽게 연결.</div>
+            <div class="slot-tags">
+              <span class="stag stag-food">🍜 8개 라멘 전문점</span>
+              <span class="stag stag-baby">👶 유모차 이동 자유</span>
+              <span class="stag stag-elderly">👴 넓은 좌석</span>
+              <span class="stag stag-tip">💡 유모차 대여 1층</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-dot afternoon">🎪</div>
+        <div class="slot-body">
+          <div class="slot-time">14:00~16:00</div>
+          <div class="slot-card highlight-card">
+            <div class="slot-name">캐널시티 · 스키즈가든 + 분수 쇼</div>
+            <div class="slot-detail">라멘 스타디움에서 바로 연결. 스키즈가든은 캐널시티 비즈니스센터 빌딩 지하, 0세~초등 2학년 대상 실내 놀이공간. 볼풀·아미아미 정글·역할놀이 타운·토이 코너 등 5개 구역. 보육 자격증 보유 플레이 리더가 함께해서 안심. 어르신들은 분수 쇼(매시 정각) 구경 또는 카페에서 휴식. 수유실·기저귀 교환대 완비. 영업 10:00~21:00, 요금 30분 800엔.</div>
+            <div class="slot-tags">
+              <span class="stag stag-baby">👶 0세부터 입장 가능</span>
+              <span class="stag stag-elderly">☕ 카페·분수쇼 구경</span>
+              <span class="stag stag-free">🎡 30분 800엔</span>
+              <span class="stag stag-tip">💡 분수 쇼 매시 정각</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-dot afternoon">🌿</div>
+        <div class="slot-body">
+          <div class="slot-time">16:00~17:30</div>
+          <div class="slot-card">
+            <div class="slot-name">락스이엔 일본 정원</div>
+            <div class="slot-detail">캐널시티 바로 옆 하카타 숨은 정원. 입장료 100엔의 고즈넉한 공간. 잉어 먹이주기 체험(100엔)을 아기도 좋아함. 어르신들이 벤치에 앉아 쉬기 딱 좋은 규모.</div>
+            <div class="slot-tags">
+              <span class="stag stag-elderly">👴 벤치 휴식 가능</span>
+              <span class="stag stag-baby">👶 잉어 먹이주기</span>
+              <span class="stag stag-free">입장 100엔</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-dot evening">🌙</div>
+        <div class="slot-body">
+          <div class="slot-time">18:00 · 예약 확정</div>
+          <div class="slot-card meal-card">
+            <div class="slot-name">야키니쿠 사이린 (彩輪)</div>
+            <div class="slot-detail">하카타역 동쪽 출구 도보 10분. 평점 4.6. 2인부터 전원 프라이빗룸 배정이라 아기·어르신 모시고 눈치 없이 편하게 식사 가능. 와규 코스 전문으로 우설·하라미 퀄리티 높음. 영어 메뉴 구비. 도착 첫날 가족과 특별한 저녁으로 딱 좋은 선택.</div>
+            <div class="slot-tags">
+              <span class="stag stag-baby">👶 프라이빗룸 확정</span>
+              <span class="stag stag-food">🥩 와규 코스</span>
+              <span class="stag stag-tip">✅ 18:00 예약 완료</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-panel" id="day-1">
+    <div class="day-header">
+      <div class="day-num">
+        <div class="day-num-label">DAY</div>
+        <div class="day-num-n">2</div>
+      </div>
+      <div>
+        <div class="day-title">텐진 쇼핑 · 오호리 공원</div>
+        <div class="day-desc">쇼핑과 자연을 함께하는 하루</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="slot">
+        <div class="slot-dot morning">🚌</div>
+        <div class="slot-body">
+          <div class="slot-time">09:00 · 부모님 별도 일정</div>
+          <div class="slot-card highlight-card">
+            <div class="slot-name">👴👵 이토시마 반일 버스투어</div>
+            <div class="slot-detail">하카타역 치쿠시구치 오리엔탈호텔 1층 로손편의점 앞 09:00 출발. 한국어 가이드 동행이라 혼자 보내드려도 안심. 마타이치노 제염소 소금 푸딩, 사쿠라이 후타미가우라 도리이, 팜비치 가든 등 포토스팟 투어. 오후 1~2시 하카타역 복귀 후 텐진 합류. 와그·마이리얼트립에서 사전 예약 (1인 5~6만원대).</div>
+            <div class="slot-tags">
+              <span class="stag stag-elderly">👴 한국어 가이드 동행</span>
+              <span class="stag stag-tip">💡 사전 예약 필수</span>
+              <span class="stag stag-tip">🕑 오후 1~2시 복귀</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-dot morning">🧥</div>
+        <div class="slot-body">
+          <div class="slot-time">10:00 · 재호님 가족 별도 일정</div>
+          <div class="slot-card highlight-card">
+            <div class="slot-name">👨‍👩‍👧 텐진 쇼핑 — 몽벨 · 슈프림 · 이와타야</div>
+            <div class="slot-detail">몽벨(텐진 2-4-38, 10:30~21:00)→슈프림(다이묘 1-15-35, 11:00~20:00) 순으로 돌고, 이와타야·미츠코시 백화점에서 어르신 화장품·기념품 구경. 돈키호테 텐진점은 구경·비교만, 실제 구매는 3일차 나카스점에서. ⚠️ 몽벨은 면세 불가.</div>
+            <div class="slot-tags">
+              <span class="stag stag-baby">👶 수유실 완비</span>
+              <span class="stag stag-tip">🛍️ 구경만, 구매는 나카스에서</span>
+              <span class="stag stag-tip">⚠️ 몽벨 면세 불가</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-dot meal">🍱</div>
+        <div class="slot-body">
+          <div class="slot-time">12:00~13:30 · 전원 합류</div>
+          <div class="slot-card meal-card">
+            <div class="slot-name">하카타역 근처 점심 · 부모님 합류</div>
+            <div class="slot-detail">이토시마 투어 복귀한 부모님과 텐진 쇼핑 마친 재호님 가족이 하카타역에서 합류. 하카타역 1번가 지하 식당가 이용 추천. 아기 이유식 가열 요청 가능.</div>
+            <div class="slot-tags">
+              <span class="stag stag-food">🍱 하카타역 식당가</span>
+              <span class="stag stag-tip">🤝 부모님 합류</span>
+              <span class="stag stag-baby">👶 이유식 가열 가능</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-dot afternoon">🏨</div>
+        <div class="slot-body">
+          <div class="slot-time">13:30~15:00 · 호텔 복귀</div>
+          <div class="slot-card">
+            <div class="slot-name">나인 호텔 복귀 · 아기 낮잠</div>
+            <div class="slot-detail">점심 후 호텔 복귀해 아기 낮잠. 어르신들도 잠깐 쉬실 수 있는 여유 시간. 낮잠 후 오호리 공원으로 출발.</div>
+            <div class="slot-tags">
+              <span class="stag stag-baby">👶 낮잠 타임</span>
+              <span class="stag stag-elderly">💤 어르신 휴식</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-dot afternoon">🌿</div>
+        <div class="slot-body">
+          <div class="slot-time">15:00~17:00</div>
+          <div class="slot-card highlight-card">
+            <div class="slot-name">오호리 공원 산책 · 후쿠오카 성터</div>
+            <div class="slot-detail">하카타역에서 지하철로 약 10분(롯폰마츠역 하차). 유모차로 호수 주변 2km 산책 코스. 아기와 오리떼 구경, 어르신들 벤치 휴식. 공원 옆 후쿠오카 성터(마이즈루 공원)까지 도보 5분. 무료 입장이며 성벽과 탑이 남아있어 산책하기 좋음.</div>
+            <div class="slot-tags">
+              <span class="stag stag-baby">👶 놀이터 있음</span>
+              <span class="stag stag-elderly">🌿 평탄한 산책로</span>
+              <span class="stag stag-free">🏯 후쿠오카 성터 무료</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-dot afternoon">☕</div>
+        <div class="slot-body">
+          <div class="slot-time">17:00~18:00</div>
+          <div class="slot-card">
+            <div class="slot-name">오호리 공원 스타벅스</div>
+            <div class="slot-detail">오호리 공원 내 호숫가 스타벅스. 통창으로 공원 뷰가 펼쳐지는 후쿠오카 인기 스타벅스 중 하나. 저녁 식사 전 잠깐 쉬어가기 딱 좋은 타이밍.</div>
+            <div class="slot-tags">
+              <span class="stag stag-walk">☕ 호숫가 뷰</span>
+              <span class="stag stag-elderly">🌿 여유로운 휴식</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-dot evening">🌃</div>
+        <div class="slot-body">
+          <div class="slot-time">저녁 18:00 · 예약 확정</div>
+          <div class="slot-card meal-card">
+            <div class="slot-name">가오가오 오호리점</div>
+            <div class="slot-detail">오호리 공원 바로 근처. 꽃바구니 정식(하나카고 젠)이 시그니처로 작은 그릇에 정성껏 담긴 요리. 공원 산책 후 걸어서 바로 이동 가능해 동선 완벽.</div>
+            <div class="slot-tags">
+              <span class="stag stag-food">🌸 하나카고 젠 정식</span>
+              <span class="stag stag-tip">✅ 18:00 예약 완료</span>
+              <span class="stag stag-tip">🗺️ 공원 도보권</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-panel" id="day-2">
+    <div class="day-header">
+      <div class="day-num">
+        <div class="day-num-label">DAY</div>
+        <div class="day-num-n">3</div>
+      </div>
+      <div>
+        <div class="day-title">돈키호테 나카스 · 귀국</div>
+        <div class="day-desc">마지막 쇼핑 후 귀국 · 14:40 출발</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="slot">
+        <div class="slot-dot morning">🛒</div>
+        <div class="slot-body">
+          <div class="slot-time">08:00~10:00 · 이른 아침</div>
+          <div class="slot-card highlight-card">
+            <div class="slot-name">돈키호테 나카스점 — 본격 구매</div>
+            <div class="slot-detail">나인 호텔에서 도보 12~15분. 24시간 영업이라 이른 아침에도 OK. 텐진점에서 구경·비교해둔 것 여기서 한 번에 구매. 기저귀·이유식·과자·화장품·기념품 총정리. 2층 면세 카운터 이용 (에스컬레이터 없어 직원에게 도움 요청). 이른 시간이라 혼잡하지 않아 유모차 이동 편리.</div>
+            <div class="slot-tags">
+              <span class="stag stag-baby">👶 이른 아침 한산</span>
+              <span class="stag stag-elderly">🛍️ 면세 가능</span>
+              <span class="stag stag-tip">💡 24시간 영업 · 도보 15분</span>
+              <span class="stag stag-tip">⚠️ 2층 이동 직원 도움 요청</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-dot afternoon">🏨</div>
+        <div class="slot-body">
+          <div class="slot-time">10:00~11:00</div>
+          <div class="slot-card">
+            <div class="slot-name">호텔 체크아웃 · 짐 수령</div>
+            <div class="slot-detail">오호리 공원에서 하카타역 방향으로 돌아오면서 호텔 체크아웃. 공항 출발 2시간 전인 12:40까지 공항 도착이 목표이므로 이 시간을 넘기지 않도록 주의.</div>
+            <div class="slot-tags">
+              <span class="stag stag-tip">⏰ 12:40까지 공항 도착 필요</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <div class="slot-dot evening">✈️</div>
+        <div class="slot-body">
+          <div class="slot-time">12:40 공항 도착 · 14:40 출발</div>
+          <div class="slot-card highlight-card">
+            <div class="slot-name">진에어 LJ0264 · 후쿠오카 14:40 출발 → 인천 16:00 도착</div>
+            <div class="slot-detail">하카타역에서 지하철로 공항까지 단 5분. 체크아웃 후 바로 이동하면 여유 있게 도착 가능. 출발 2시간 전 12:40까지 공항 도착 목표. 탑승 전 면세점에서 마지막 쇼핑.</div>
+            <div class="slot-tags">
+              <span class="stag stag-tip">🚇 하카타역→공항 5분</span>
+              <span class="stag stag-tip">⏰ 12:40까지 공항 도착</span>
+              <span class="stag stag-elderly">🛍️ 면세점 마지막 쇼핑</span>
+              <span class="stag stag-tip">💡 인천 16:00 도착</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 찜한 곳 -->
+  <div class="day-panel" id="day-3">
+    <div class="day-header">
+      <div class="day-num" style="background: var(--sky);">
+        <div class="day-num-label" style="font-size:8px">LIST</div>
+        <div class="day-num-n" style="font-size:16px">📌</div>
+      </div>
+      <div>
+        <div class="day-title">찜한 장소 모음</div>
+        <div class="day-desc">일정에 여유가 생기면 들러볼 후보지</div>
+      </div>
+    </div>
+
+    <div class="section-title">🍩 디저트 · 베이커리</div>
+    <div class="essentials-list">
+      <div class="essential-item">
+        <div class="ei-icon">🥐</div>
+        <div class="ei-text"><strong>BOUL'ANGE</strong> ⭐4.5 — 하카타역 근처 인기 프렌치 베이커리. 크루아상·식빵류가 맛있기로 유명. 아침 빵 사러 들르기 딱 좋음.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🍠</div>
+        <div class="ei-text"><strong>미츠이모 타임 야쿠인점</strong> ⭐4.7 — 고구마 전문 디저트 카페. 소프트아이스크림·몽블랑 등 고구마 특화 메뉴. 야쿠인 골목 분위기도 좋음.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🍩</div>
+        <div class="ei-text"><strong>아임도넛</strong> ⭐3.8 — 텐진 인근. 생도넛(나마도나츠) 전문점. 쫄깃한 식감이 특징. 줄이 길 수 있으니 오픈 직후 방문 추천.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🍡</div>
+        <div class="ei-text"><strong>이모야 킨지로 텐진 지하상가점</strong> ⭐4.4 — 텐진 지하상가. 고구마 과자·디저트 전문. 걸어다니며 먹기 좋은 간식 코너.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🍦</div>
+        <div class="ei-text"><strong>이몬네 하카타점</strong> ⭐4.3 — 하카타 근처. 특색 있는 아이스크림 전문점. 아기도 좋아할 만한 밝은 분위기.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🧁</div>
+        <div class="ei-text"><strong>이토킹 캐널시티 하카타점</strong> ⭐4.4 — 캐널시티 내 디저트 전문점. 1일차 캐널시티 방문 시 자연스럽게 들를 수 있음.</div>
+      </div>
+    </div>
+
+    <div class="section-title">🍳 식당 후보</div>
+    <div class="essentials-list">
+      <div class="essential-item">
+        <div class="ei-icon">🥚</div>
+        <div class="ei-text"><strong>빌즈 후쿠오카</strong> ⭐3.9 — 니시나카스 강변. 호주발 세계적 브런치 카페. 리코타 팬케이크가 시그니처. 전날 예약 필수. 유아의자 구비.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🥞</div>
+        <div class="ei-text"><strong>오코노미야키 타쿠미짱</strong> ⭐4.4 — 하카타 근처. 가성비 좋은 오코노미야키 전문점. 1인당 1,000~2,000엔대로 부담 없음. 점심 또는 가벼운 저녁으로 추천.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🍱</div>
+        <div class="ei-text"><strong>쇼쿠도 오완</strong> ⭐4.2 — 일식 정식 전문. 2,000~3,000엔대. 어르신들 입맛에 잘 맞는 가정식 스타일. 조용하고 차분한 분위기.</div>
+      </div>
+    </div>
+
+    <div class="section-title">🛍️ 쇼핑 후보</div>
+    <div class="essentials-list">
+      <div class="essential-item">
+        <div class="ei-icon">⛺</div>
+        <div class="ei-text"><strong>알펜 후쿠오카</strong> ⭐4.1 — 아웃도어·스포츠용품 대형매장. 몽벨보다 더 다양한 브랜드를 한곳에서 비교 가능. 텐진 인근.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">☕</div>
+        <div class="ei-text"><strong>칼디커피팜 하카타 마루이</strong> ⭐4.1 — 수입 식품·커피 전문점. 특이한 과자·소스·커피원두 구경하기 좋음. 선물용으로도 인기.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🎮</div>
+        <div class="ei-text"><strong>포켓몬센터 후쿠오카</strong> ⭐4.2 — 공식 포켓몬 굿즈 전문점. 라라포트 후쿠오카 내 위치. 하카타역에서 차로 15분 거리라 동선 체크 필요.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🛒</div>
+        <div class="ei-text"><strong>맥스밸류 익스프레스 하카타기온점</strong> ⭐4.0 — 나인 호텔 도보권 내 슈퍼마켓. 이유식·음료·간식 긴급 보충에 유용. 늦게까지 운영.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🏬</div>
+        <div class="ei-text"><strong>라라포트 후쿠오카</strong> ⭐4.3 — 하카타역에서 차로 20분. 건담 실물 크기 동상으로 유명. 포켓몬센터도 내부에 있어 함께 방문하면 효율적.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🍎</div>
+        <div class="ei-text"><strong>야메혼포</strong> ⭐4.3 — 하카타 인근 신선 과일·야채 가게. 가격 저렴하고 신선한 과일 간식 구입에 좋음. 아기 간식용 과일 사기 딱 좋음.</div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      위 장소들은 확정 일정에는 없지만 동선이 맞거나 시간 여유가 생길 때 들르면 좋을 후보지예요 😊
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="day-panel" id="day-4">
+    <div class="day-header">
+      <div class="day-num" style="background: var(--green);">
+        <div class="day-num-label">TIPS</div>
+        <div class="day-num-n" style="font-size:16px">✓</div>
+      </div>
+      <div>
+        <div class="day-title">아기 동반 필수 준비사항</div>
+        <div class="day-desc">16개월 아기와 5인 가족 여행 체크리스트</div>
+      </div>
+    </div>
+
+    <div class="section-title">🎒 짐 준비</div>
+    <div class="essentials-list">
+      <div class="essential-item">
+        <div class="ei-icon">🍼</div>
+        <div class="ei-text"><strong>이유식 충분히</strong> — 일본 마트에서 구입 가능하나 국내 이유식이 더 익숙. 최소 4~5일치 여유분 챙기기. 이유식 용기는 식당에서 데워달라고 부탁 가능.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🚼</div>
+        <div class="ei-text"><strong>기저귀·물티슈 넉넉히</strong> — 일본 내 구입 가능하지만 국내 브랜드 선호 시 챙겨가기. 마트(돈키호테·이온)에서 보충 가능.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🛺</div>
+        <div class="ei-text"><strong>유모차 필수</strong> — 장거리 도보시 아기 이동 및 짐 보관에 필수. 일본 지하철과 쇼핑몰에 엘리베이터 완비. 접이식 유모차 추천.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">💊</div>
+        <div class="ei-text"><strong>상비약 준비</strong> — 아기 해열제(좌약 포함), 소화제, 멀미약(어르신용), 일회용 밴드. 일본 약국 약은 복용법이 다를 수 있으므로 국내 처방약 챙기기.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🌂</div>
+        <div class="ei-text"><strong>우비 또는 접이식 우산</strong> — 후쿠오카는 비가 잦음. 유모차 레인커버도 준비하면 좋음.</div>
+      </div>
+    </div>
+
+    <div class="section-title">🏨 숙소 선택 팁</div>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-icon">🛏️</div>
+        <div class="info-card-title">방 구성</div>
+        <div class="info-card-body">5명이므로 2개 객실 예약. 부부+아기 방 1개 + 장인어른·장모님 방 1개. 아기 침대(베이비 베드) 요청 가능한 호텔 선택.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">📍</div>
+        <div class="info-card-title">하카타역 근처 확정 ✓</div>
+        <div class="info-card-body">공항에서 지하철 5분, 텐진까지 3분으로 모든 동선이 최단거리. 아기 짐 많을 때 이동 부담 최소화.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">🛁</div>
+        <div class="info-card-title">욕조 있는 객실</div>
+        <div class="info-card-body">아기 목욕을 위해 욕조 있는 방 필수. 예약 시 욕조 유무 반드시 확인.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon">🧳</div>
+        <div class="info-card-title">수하물 서비스</div>
+        <div class="info-card-body">타쿠하이(택배) 서비스로 짐을 공항↔호텔 배송. 아기 짐 많을 때 매우 유용. 하카타역 내 APA 서비스 추천.</div>
+      </div>
+    </div>
+
+    <div class="section-title">🚇 교통 팁</div>
+    <div class="essentials-list">
+      <div class="essential-item">
+        <div class="ei-icon">🎫</div>
+        <div class="ei-text"><strong>니모카 또는 스이카 카드</strong> — 교통카드 1장으로 지하철·버스·니시테츠 전철 모두 이용. 사전 충전해두면 매표 시간 절약.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🚕</div>
+        <div class="ei-text"><strong>택시 적극 활용</strong> — 아기와 어르신이 있으면 택시가 때론 지하철보다 편함. 일본 택시는 자동문이라 유모차 탑승도 무리없음.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🗺️</div>
+        <div class="ei-text"><strong>Google Maps 오프라인 저장</strong> — 출발 전 후쿠오카 지역 오프라인 지도 저장. 데이터 로밍 없이도 길 찾기 가능.</div>
+      </div>
+    </div>
+
+    <div class="section-title">🍽️ 아기 식사 팁</div>
+    <div class="essentials-list">
+      <div class="essential-item">
+        <div class="ei-icon">🍚</div>
+        <div class="ei-text"><strong>일본 식당 아기 친화도 높음</strong> — 대부분 음식점에서 이유식 가열, 뜨거운 물(고탕) 요청 가능. 우동·된장국·흰쌀밥은 아기도 먹을 수 있는 음식.</div>
+      </div>
+      <div class="essential-item">
+        <div class="ei-icon">🪑</div>
+        <div class="ei-text"><strong>유아 의자 사전 확인</strong> — 방문 전 구글맵 리뷰나 전화로 유아 의자(코도모 이스) 여부 확인. 캐주얼 패밀리 레스토랑은 대부분 구비.</div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      이 일정은 16개월 아기의 체력과 낮잠 패턴, 어르신의 이동 편의를 최우선으로 고려했습니다.<br>
+      하루 2~3개 스팟이 적절하며, 무리한 이동보다 느긋하게 즐기는 여행을 추천합니다. 🌸
+    </div>
+
+    <div style="margin-top: 16px; text-align: center;">
+      <a href="https://maps.app.goo.gl/kmcT9GFBtBeJ4nr49" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: var(--deep); color: var(--cream); text-decoration: none; padding: 12px 20px; border-radius: 10px; font-size: 13px; font-weight: 500;">
+        <span style="font-size:18px">🗺️</span> 구글맵 장소 리스트 열기
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showDay(idx) {
+  document.querySelectorAll('.day-panel').forEach((p, i) => {
+    p.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', i === idx);
+  });
+}
+</script>
+</body>
+</html>
