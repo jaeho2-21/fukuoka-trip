@@ -7,16 +7,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #FAF6F0;
-    --warm: #F0E8D8;
-    --rust: #C4603A;
-    --rust-light: #E8896A;
-    --deep: #2C2018;
-    --mid: #6B4E35;
-    --soft: #A08060;
-    --green: #5A7A5A;
-    --sky: #6B8FA8;
-    --gold: #C89A3A;
+    --cream: #FDF8FA;
+    --warm: #F8EFF4;
+    --rust: #C4607A;
+    --rust-light: #E8899A;
+    --deep: #3A1828;
+    --mid: #7A3A50;
+    --soft: #B07888;
+    --green: #7A5A8A;
+    --sky: #A06888;
+    --gold: #D4809A;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -29,8 +29,8 @@
 
   /* HEADER */
   .hero {
-    background: var(--deep);
-    color: var(--cream);
+    background: linear-gradient(135deg, #C47A90 0%, #D9A0B0 50%, #EEC8D4 100%);
+    color: #FDF8FA;
     padding: 48px 24px 40px;
     position: relative;
     overflow: hidden;
@@ -40,8 +40,8 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60% 80% at 80% 20%, rgba(196,96,58,0.25) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(107,143,168,0.15) 0%, transparent 50%);
+      radial-gradient(ellipse 60% 80% at 80% 20%, rgba(255,255,255,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(255,200,210,0.15) 0%, transparent 50%);
   }
   .hero-inner { position: relative; max-width: 680px; margin: 0 auto; }
   .hero-badge {
@@ -50,8 +50,8 @@
     font-weight: 500;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--rust-light);
-    border: 1px solid rgba(232,137,106,0.4);
+    color: #FFD8E4;
+    border: 1px solid rgba(255,216,228,0.5);
     padding: 4px 12px;
     border-radius: 2px;
     margin-bottom: 16px;
@@ -63,10 +63,10 @@
     line-height: 1.2;
     margin-bottom: 8px;
   }
-  .hero h1 span { color: var(--rust-light); }
+  .hero h1 span { color: #FFD8E4; }
   .hero-sub {
     font-size: 13px;
-    color: rgba(250,246,240,0.6);
+    color: rgba(253,248,250,0.7);
     letter-spacing: 0.05em;
     margin-bottom: 28px;
   }
@@ -76,18 +76,61 @@
     gap: 8px;
   }
   .family-tag {
-    background: rgba(250,246,240,0.08);
-    border: 1px solid rgba(250,246,240,0.15);
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
     border-radius: 20px;
     padding: 5px 14px;
     font-size: 12px;
-    color: rgba(250,246,240,0.75);
+    color: rgba(253,248,250,0.85);
   }
   .family-tag .icon { margin-right: 5px; }
 
+  /* 프로필 사진 */
+  .hero-profile {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.6);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    object-fit: cover;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .hero-profile-placeholder {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.6);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-profile-placeholder input[type=file] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+  .hero-profile-placeholder .upload-hint {
+    font-size: 9px;
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+    line-height: 1.4;
+    pointer-events: none;
+  }
+
   /* TIPS BAR */
   .tips-bar {
-    background: var(--rust);
+    background: #A04060;
     padding: 12px 24px;
   }
   .tips-inner {
@@ -98,13 +141,13 @@
     gap: 10px;
   }
   .tips-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-  .tips-text { font-size: 12px; color: rgba(250,246,240,0.9); line-height: 1.6; }
+  .tips-text { font-size: 12px; color: rgba(253,248,250,0.9); line-height: 1.6; }
   .tips-text strong { color: #fff; font-weight: 500; }
 
   /* DAY TABS */
   .tabs {
     background: var(--warm);
-    border-bottom: 1px solid rgba(160,128,96,0.2);
+    border-bottom: 1px solid rgba(196,96,122,0.15);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -149,7 +192,7 @@
     gap: 16px;
     margin-bottom: 24px;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(160,128,96,0.2);
+    border-bottom: 1px solid rgba(196,96,122,0.15);
   }
   .day-num {
     width: 48px;
@@ -177,7 +220,7 @@
     top: 0;
     bottom: 0;
     width: 1px;
-    background: linear-gradient(to bottom, var(--rust), rgba(160,128,96,0.2));
+    background: linear-gradient(to bottom, var(--rust), rgba(196,96,122,0.15));
   }
 
   .slot {
@@ -199,10 +242,10 @@
     z-index: 1;
     border: 2px solid var(--cream);
   }
-  .slot-dot.morning { background: #FFF3E0; }
-  .slot-dot.afternoon { background: #E8F4F0; }
-  .slot-dot.evening { background: #EEF2F8; }
-  .slot-dot.meal { background: #FDF0E8; border-color: var(--rust); }
+  .slot-dot.morning { background: #FFF0F4; }
+  .slot-dot.afternoon { background: #F8EEF4; }
+  .slot-dot.evening { background: #F4EEF8; }
+  .slot-dot.meal { background: #FEEAF0; border-color: var(--rust); }
 
   .slot-body { flex: 1; padding-top: 4px; }
   .slot-time {
@@ -217,8 +260,8 @@
     background: white;
     border-radius: 12px;
     padding: 14px 16px;
-    box-shadow: 0 1px 3px rgba(44,32,24,0.06);
-    border: 1px solid rgba(160,128,96,0.12);
+    box-shadow: 0 1px 3px rgba(58,24,40,0.06);
+    border: 1px solid rgba(196,96,122,0.1);
   }
   .slot-card.meal-card { border-left: 3px solid var(--rust); }
   .slot-card.highlight-card { border-left: 3px solid var(--gold); }
@@ -246,12 +289,12 @@
     border-radius: 4px;
     font-weight: 500;
   }
-  .stag-baby { background: #FFF0F5; color: #C06080; }
-  .stag-elderly { background: #F0F5FF; color: #4060A0; }
-  .stag-food { background: #FFF5E0; color: #A06020; }
-  .stag-walk { background: #F0FAF0; color: #407040; }
-  .stag-free { background: #F5F5F5; color: #606060; }
-  .stag-tip { background: #FFF8E8; color: #806020; }
+  .stag-baby { background: #FEEAF2; color: #A03060; }
+  .stag-elderly { background: #F4EAF4; color: #7A3070; }
+  .stag-food { background: #FEF0F4; color: #A04060; }
+  .stag-walk { background: #F0EAF8; color: #604080; }
+  .stag-free { background: #F8F0F4; color: #806070; }
+  .stag-tip { background: #FEF0F8; color: #904060; }
 
   /* PRACTICAL INFO */
   .section-title {
@@ -268,7 +311,7 @@
     content: '';
     flex: 1;
     height: 1px;
-    background: rgba(160,128,96,0.2);
+    background: rgba(196,96,122,0.15);
   }
 
   .info-grid {
@@ -280,7 +323,7 @@
     background: white;
     border-radius: 10px;
     padding: 14px;
-    border: 1px solid rgba(160,128,96,0.12);
+    border: 1px solid rgba(196,96,122,0.1);
   }
   .info-card-icon { font-size: 20px; margin-bottom: 8px; }
   .info-card-title { font-size: 12px; font-weight: 500; color: var(--deep); margin-bottom: 4px; }
@@ -295,12 +338,314 @@
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    border: 1px solid rgba(160,128,96,0.12);
+    border: 1px solid rgba(196,96,122,0.1);
     font-size: 13px;
   }
   .essential-item .ei-icon { font-size: 18px; flex-shrink: 0; }
   .essential-item .ei-text { color: var(--deep); line-height: 1.6; }
   .essential-item .ei-text strong { font-weight: 500; }
+
+  .footer-note {
+    margin-top: 40px;
+    padding: 16px;
+    background: var(--warm);
+    border-radius: 10px;
+    font-size: 11px;
+    color: var(--soft);
+    text-align: center;
+    line-height: 1.8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--cream);
+    color: var(--deep);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .hero {
+    background: linear-gradient(135deg, #C47A90 0%, #D9A0B0 50%, #EEC8D4 100%);
+    color: var(--cream);
+    padding: 48px 24px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);
+  }
+  .hero-inner { position: relative; max-width: 680px; margin: 0 auto; }
+  .hero-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #FFD8E4;
+    border: 1px solid rgba(255,216,228,0.5);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(28px, 7vw, 44px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .hero h1 span { color: #FFD8E4; }
+  .hero-sub {
+    font-size: 13px;
+    color: rgba(253,248,250,0.7);
+    letter-spacing: 0.05em;
+    margin-bottom: 28px;
+  }
+  .family-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .family-tag {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: rgba(253,248,250,0.85);
+  }
+  .family-tag .icon { margin-right: 5px; }
+
+  /* TIPS BAR */
+  .tips-bar {
+    background: #A04060;
+    padding: 12px 24px;
+  }
+  .tips-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .tips-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .tips-text { font-size: 12px; color: rgba(253,248,250,0.9); line-height: 1.6; }
+  .tips-text strong { color: #fff; font-weight: 500; }
+
+  /* DAY TABS */
+  .tabs {
+    background: var(--warm);
+    border-bottom: 1px solid rgba(196,96,122,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tabs-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+  }
+  .tab {
+    flex: 1;
+    padding: 14px 8px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--soft);
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .tab.active {
+    color: var(--rust);
+    border-bottom-color: var(--rust);
+    font-weight: 500;
+  }
+  .tab-day { display: block; font-size: 11px; opacity: 0.7; margin-top: 2px; }
+
+  /* MAIN */
+  .main { max-width: 680px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  /* DAY PANEL */
+  .day-panel { display: none; }
+  .day-panel.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(196,96,122,0.15);
+  }
+  .day-num {
+    width: 48px;
+    height: 48px;
+    background: var(--rust);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .day-num-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.8; }
+  .day-num-n { font-family: 'Noto Serif KR', serif; font-size: 22px; font-weight: 700; line-height: 1; }
+  .day-title { font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 600; }
+  .day-desc { font-size: 12px; color: var(--soft); margin-top: 3px; }
+
+  /* TIMELINE */
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--rust), rgba(196,96,122,0.15));
+  }
+
+  .slot {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .slot-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    border: 2px solid var(--cream);
+  }
+  .slot-dot.morning { background: #FFF0F4; }
+  .slot-dot.afternoon { background: #F8EEF4; }
+  .slot-dot.evening { background: #F4EEF8; }
+  .slot-dot.meal { background: #FEEAF0; border-color: var(--rust); }
+
+  .slot-body { flex: 1; padding-top: 4px; }
+  .slot-time {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--soft);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .slot-card {
+    background: white;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 3px rgba(58,24,40,0.06);
+    border: 1px solid rgba(196,96,122,0.1);
+  }
+  .slot-card.meal-card { border-left: 3px solid var(--rust); }
+  .slot-card.highlight-card { border-left: 3px solid var(--gold); }
+
+  .slot-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--deep);
+    margin-bottom: 4px;
+  }
+  .slot-detail {
+    font-size: 12px;
+    color: var(--soft);
+    line-height: 1.7;
+  }
+  .slot-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  .stag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .stag-baby { background: #FEEAF2; color: #A03060; }
+  .stag-elderly { background: #F4EAF4; color: #7A3070; }
+  .stag-food { background: #FFF0F4; color: #A04060; }
+  .stag-walk { background: #F0EAF8; color: #604080; }
+  .stag-free { background: #F8F0F4; color: #806070; }
+  .stag-tip { background: #FEF0F8; color: #904060; }
+
+  /* PRACTICAL INFO */
+  .section-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--mid);
+    margin: 32px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(196,96,122,0.15);
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-card {
+    background: white;
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid rgba(196,96,122,0.1);
+  }
+  .info-card-icon { font-size: 20px; margin-bottom: 8px; }
+  .info-card-title { font-size: 12px; font-weight: 500; color: var(--deep); margin-bottom: 4px; }
+  .info-card-body { font-size: 11px; color: var(--soft); line-height: 1.7; }
+
+  /* ESSENTIALS */
+  .essentials-list { display: flex; flex-direction: column; gap: 8px; }
+  .essential-item {
+    background: white;
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    border: 1px solid rgba(196,96,122,0.1);
+    font-size: 13px;
+  }
+  .essential-item .ei-icon { font-size: 18px; flex-shrink: 0; }
+  .essential-item .ei-text { color: var(--deep); line-height: 1.6; }
+  .essential-item .ei-text strong { font-weight: 500; }
+
+  .essential-item[onclick]:hover {
+    background: var(--warm);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(196,96,122,0.12);
+    transition: all 0.15s;
+  }
+  .essential-item { transition: all 0.15s; }
 
   .footer-note {
     margin-top: 40px;
@@ -319,7 +664,7 @@
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-badge">Family Travel Plan</div>
-    <h1>후쿠오카<br><span>2박 3일</span> 가족여행</h1>
+    <h1>이로움과 함께하는<br>후쿠오카 <span>2박 3일</span></h1>
     <p class="hero-sub">6월 10일(수) — 6월 12일(금) · 진에어 · 16개월 아기와 함께하는 큐슈 여행</p>
     <div class="family-tags">
       <span class="family-tag"><span class="icon">👶</span>16개월 아기</span>
@@ -402,10 +747,10 @@
           <div class="slot-time">12:00~12:30 · 체크인 전</div>
           <div class="slot-card">
             <div class="slot-name">나인 호텔 하카타 — 짐 맡기기</div>
-            <div class="slot-detail">체크인 전이라도 프런트에 짐 보관 요청 가능. 유모차·캐리어 모두 맡기고 빈 몸으로 출발. 얼리 체크인 가능 여부도 함께 문의. 호텔에서 이치란 선플라자점까지 도보 15~20분 또는 택시 5분(700~800엔).</div>
+            <div class="slot-detail">체크인 전이라도 프런트에 짐 보관 요청 가능. 유모차·캐리어 모두 맡기고 빈 몸으로 출발. 얼리 체크인 가능 여부도 함께 문의. 호텔에서 캐널시티까지 도보 10분 거리.</div>
             <div class="slot-tags">
               <span class="stag stag-tip">💡 짐 보관 후 이동</span>
-              <span class="stag stag-tip">🚕 택시 700~800엔</span>
+              <span class="stag stag-tip">🚶 캐널시티 도보 10분</span>
             </div>
           </div>
         </div>
@@ -451,11 +796,13 @@
           <div class="slot-time">16:00~17:30</div>
           <div class="slot-card">
             <div class="slot-name">락스이엔 일본 정원</div>
-            <div class="slot-detail">캐널시티 바로 옆 하카타 숨은 정원. 입장료 100엔의 고즈넉한 공간. 잉어 먹이주기 체험(100엔)을 아기도 좋아함. 어르신들이 벤치에 앉아 쉬기 딱 좋은 규모.</div>
+            <div class="slot-detail">캐널시티 바로 옆 하카타 숨은 정원. 입장료 100엔의 고즈넉한 공간. 잉어 먹이주기 체험(100엔)을 아기도 좋아함. 어르신들이 벤치에 앉아 쉬기 딱 좋은 규모. 관람 후 동쪽으로 도보 12~15분이면 사이린 도착 — 나인 호텔을 지나치는 동선이라 잠깐 들러 쉬다 가도 좋음. 택시 이용 시 5분 이내.</div>
             <div class="slot-tags">
               <span class="stag stag-elderly">👴 벤치 휴식 가능</span>
               <span class="stag stag-baby">👶 잉어 먹이주기</span>
               <span class="stag stag-free">입장 100엔</span>
+              <span class="stag stag-tip">🚶 사이린까지 도보 15분</span>
+              <span class="stag stag-tip">🚕 택시 5분 이내</span>
             </div>
           </div>
         </div>
@@ -682,75 +1029,81 @@
       </div>
     </div>
 
+    <div style="margin-bottom: 20px; text-align: center;">
+      <a href="https://maps.app.goo.gl/kmcT9GFBtBeJ4nr49" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: var(--deep); color: var(--cream); text-decoration: none; padding: 12px 24px; border-radius: 10px; font-size: 13px; font-weight: 500; width: 100%; justify-content: center; box-sizing: border-box;">
+        <span style="font-size:18px">🗺️</span> 구글맵 장소 리스트 열기
+      </a>
+    </div>
+
     <div class="section-title">🍩 디저트 · 베이커리</div>
     <div class="essentials-list">
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=BOUL+ANGE+博多+福岡','_blank')" style="cursor:pointer">
         <div class="ei-icon">🥐</div>
-        <div class="ei-text"><strong>BOUL'ANGE</strong> ⭐4.5 — 하카타역 근처 인기 프렌치 베이커리. 크루아상·식빵류가 맛있기로 유명. 아침 빵 사러 들르기 딱 좋음.</div>
+        <div class="ei-text"><strong>BOUL'ANGE</strong> ⭐4.5 — 하카타역 근처 인기 프렌치 베이커리. 크루아상·식빵류가 맛있기로 유명. 아침 빵 사러 들르기 딱 좋음. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=芋時間+薬院店+福岡','_blank')" style="cursor:pointer">
         <div class="ei-icon">🍠</div>
-        <div class="ei-text"><strong>미츠이모 타임 야쿠인점</strong> ⭐4.7 — 고구마 전문 디저트 카페. 소프트아이스크림·몽블랑 등 고구마 특화 메뉴. 야쿠인 골목 분위기도 좋음.</div>
+        <div class="ei-text"><strong>미츠이모 타임 야쿠인점</strong> ⭐4.7 — 고구마 전문 디저트 카페. 소프트아이스크림·몽블랑 등 고구마 특화 메뉴. 야쿠인 골목 분위기도 좋음. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=I+am+DONUT+福岡+天神','_blank')" style="cursor:pointer">
         <div class="ei-icon">🍩</div>
-        <div class="ei-text"><strong>아임도넛</strong> ⭐3.8 — 텐진 인근. 생도넛(나마도나츠) 전문점. 쫄깃한 식감이 특징. 줄이 길 수 있으니 오픈 직후 방문 추천.</div>
+        <div class="ei-text"><strong>아임도넛</strong> ⭐3.8 — 텐진 인근. 생도넛(나마도나츠) 전문점. 쫄깃한 식감이 특징. 줄이 길 수 있으니 오픈 직후 방문 추천. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=芋屋金次郎+天神地下街+福岡','_blank')" style="cursor:pointer">
         <div class="ei-icon">🍡</div>
-        <div class="ei-text"><strong>이모야 킨지로 텐진 지하상가점</strong> ⭐4.4 — 텐진 지하상가. 고구마 과자·디저트 전문. 걸어다니며 먹기 좋은 간식 코너.</div>
+        <div class="ei-text"><strong>이모야 킨지로 텐진 지하상가점</strong> ⭐4.4 — 텐진 지하상가. 고구마 과자·디저트 전문. 걸어다니며 먹기 좋은 간식 코너. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=いもんね+博多店+福岡','_blank')" style="cursor:pointer">
         <div class="ei-icon">🍦</div>
-        <div class="ei-text"><strong>이몬네 하카타점</strong> ⭐4.3 — 하카타 근처. 특색 있는 아이스크림 전문점. 아기도 좋아할 만한 밝은 분위기.</div>
+        <div class="ei-text"><strong>이몬네 하카타점</strong> ⭐4.3 — 하카타 근처. 특색 있는 아이스크림 전문점. 아기도 좋아할 만한 밝은 분위기. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=いとキング+キャナルシティ博多店','_blank')" style="cursor:pointer">
         <div class="ei-icon">🧁</div>
-        <div class="ei-text"><strong>이토킹 캐널시티 하카타점</strong> ⭐4.4 — 캐널시티 내 디저트 전문점. 1일차 캐널시티 방문 시 자연스럽게 들를 수 있음.</div>
+        <div class="ei-text"><strong>이토킹 캐널시티 하카타점</strong> ⭐4.4 — 캐널시티 내 디저트 전문점. 1일차 캐널시티 방문 시 자연스럽게 들를 수 있음. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
     </div>
 
     <div class="section-title">🍳 식당 후보</div>
     <div class="essentials-list">
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=bills+福岡','_blank')" style="cursor:pointer">
         <div class="ei-icon">🥚</div>
-        <div class="ei-text"><strong>빌즈 후쿠오카</strong> ⭐3.9 — 니시나카스 강변. 호주발 세계적 브런치 카페. 리코타 팬케이크가 시그니처. 전날 예약 필수. 유아의자 구비.</div>
+        <div class="ei-text"><strong>빌즈 후쿠오카</strong> ⭐3.9 — 니시나카스 강변. 호주발 세계적 브런치 카페. 리코타 팬케이크가 시그니처. 전날 예약 필수. 유아의자 구비. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=お好み焼き+たくみちゃん+博多+福岡','_blank')" style="cursor:pointer">
         <div class="ei-icon">🥞</div>
-        <div class="ei-text"><strong>오코노미야키 타쿠미짱</strong> ⭐4.4 — 하카타 근처. 가성비 좋은 오코노미야키 전문점. 1인당 1,000~2,000엔대로 부담 없음. 점심 또는 가벼운 저녁으로 추천.</div>
+        <div class="ei-text"><strong>오코노미야키 타쿠미짱</strong> ⭐4.4 — 하카타 근처. 가성비 좋은 오코노미야키 전문점. 1인당 1,000~2,000엔대로 부담 없음. 점심 또는 가벼운 저녁으로 추천. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=食堂おわん+福岡','_blank')" style="cursor:pointer">
         <div class="ei-icon">🍱</div>
-        <div class="ei-text"><strong>쇼쿠도 오완</strong> ⭐4.2 — 일식 정식 전문. 2,000~3,000엔대. 어르신들 입맛에 잘 맞는 가정식 스타일. 조용하고 차분한 분위기.</div>
+        <div class="ei-text"><strong>쇼쿠도 오완</strong> ⭐4.2 — 일식 정식 전문. 2,000~3,000엔대. 어르신들 입맛에 잘 맞는 가정식 스타일. 조용하고 차분한 분위기. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
     </div>
 
     <div class="section-title">🛍️ 쇼핑 후보</div>
     <div class="essentials-list">
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=アルペン+福岡+天神','_blank')" style="cursor:pointer">
         <div class="ei-icon">⛺</div>
-        <div class="ei-text"><strong>알펜 후쿠오카</strong> ⭐4.1 — 아웃도어·스포츠용품 대형매장. 몽벨보다 더 다양한 브랜드를 한곳에서 비교 가능. 텐진 인근.</div>
+        <div class="ei-text"><strong>알펜 후쿠오카</strong> ⭐4.1 — 아웃도어·스포츠용품 대형매장. 몽벨보다 더 다양한 브랜드를 한곳에서 비교 가능. 텐진 인근. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=カルディコーヒーファーム+博多マルイ','_blank')" style="cursor:pointer">
         <div class="ei-icon">☕</div>
-        <div class="ei-text"><strong>칼디커피팜 하카타 마루이</strong> ⭐4.1 — 수입 식품·커피 전문점. 특이한 과자·소스·커피원두 구경하기 좋음. 선물용으로도 인기.</div>
+        <div class="ei-text"><strong>칼디커피팜 하카타 마루이</strong> ⭐4.1 — 수입 식품·커피 전문점. 특이한 과자·소스·커피원두 구경하기 좋음. 선물용으로도 인기. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=ポケモンセンター福岡','_blank')" style="cursor:pointer">
         <div class="ei-icon">🎮</div>
-        <div class="ei-text"><strong>포켓몬센터 후쿠오카</strong> ⭐4.2 — 공식 포켓몬 굿즈 전문점. 라라포트 후쿠오카 내 위치. 하카타역에서 차로 15분 거리라 동선 체크 필요.</div>
+        <div class="ei-text"><strong>포켓몬센터 후쿠오카</strong> ⭐4.2 — 공식 포켓몬 굿즈 전문점. 라라포트 후쿠오카 내 위치. 하카타역에서 차로 15분 거리라 동선 체크 필요. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=マックスバリュエクスプレス+博多祇園店','_blank')" style="cursor:pointer">
         <div class="ei-icon">🛒</div>
-        <div class="ei-text"><strong>맥스밸류 익스프레스 하카타기온점</strong> ⭐4.0 — 나인 호텔 도보권 내 슈퍼마켓. 이유식·음료·간식 긴급 보충에 유용. 늦게까지 운영.</div>
+        <div class="ei-text"><strong>맥스밸류 익스프레스 하카타기온점</strong> ⭐4.0 — 나인 호텔 도보권 내 슈퍼마켓. 이유식·음료·간식 긴급 보충에 유용. 늦게까지 운영. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=ららぽーと福岡','_blank')" style="cursor:pointer">
         <div class="ei-icon">🏬</div>
-        <div class="ei-text"><strong>라라포트 후쿠오카</strong> ⭐4.3 — 하카타역에서 차로 20분. 건담 실물 크기 동상으로 유명. 포켓몬센터도 내부에 있어 함께 방문하면 효율적.</div>
+        <div class="ei-text"><strong>라라포트 후쿠오카</strong> ⭐4.3 — 하카타역에서 차로 20분. 건담 실물 크기 동상으로 유명. 포켓몬센터도 내부에 있어 함께 방문하면 효율적. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
-      <div class="essential-item">
+      <div class="essential-item" onclick="window.open('https://maps.google.com/?q=八女本舗+福岡+博多','_blank')" style="cursor:pointer">
         <div class="ei-icon">🍎</div>
-        <div class="ei-text"><strong>야메혼포</strong> ⭐4.3 — 하카타 인근 신선 과일·야채 가게. 가격 저렴하고 신선한 과일 간식 구입에 좋음. 아기 간식용 과일 사기 딱 좋음.</div>
+        <div class="ei-text"><strong>야메혼포</strong> ⭐4.3 — 하카타 인근 신선 과일·야채 가게. 가격 저렴하고 신선한 과일 간식 구입에 좋음. 아기 간식용 과일 사기 딱 좋음. <span style="color:var(--rust);font-size:11px">→ 지도 보기</span></div>
       </div>
     </div>
 
@@ -851,12 +1204,6 @@
     <div class="footer-note">
       이 일정은 16개월 아기의 체력과 낮잠 패턴, 어르신의 이동 편의를 최우선으로 고려했습니다.<br>
       하루 2~3개 스팟이 적절하며, 무리한 이동보다 느긋하게 즐기는 여행을 추천합니다. 🌸
-    </div>
-
-    <div style="margin-top: 16px; text-align: center;">
-      <a href="https://maps.app.goo.gl/kmcT9GFBtBeJ4nr49" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: var(--deep); color: var(--cream); text-decoration: none; padding: 12px 20px; border-radius: 10px; font-size: 13px; font-weight: 500;">
-        <span style="font-size:18px">🗺️</span> 구글맵 장소 리스트 열기
-      </a>
     </div>
   </div>
 
